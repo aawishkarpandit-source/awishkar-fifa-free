@@ -189,18 +189,21 @@
 
     footer {
       position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(17,24,39,0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      text-align: center; padding: 8px 16px;
-      font-size: 0.7rem; color: #4b5563;
-      border-top: 1px solid rgba(31,41,55,0.5);
-      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-      opacity: 0; transform: translateY(100%);
+      bottom: 8px; left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      z-index: 101;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: center; padding: 4px 12px;
+      font-size: 0.6rem; color: #6b7280;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
+      pointer-events: none;
+      white-space: nowrap;
     }
-    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { to { opacity: 1; transform: translateX(-50%) translateY(0); } }
     footer span {
       background: linear-gradient(135deg, #e94560, #ff6b81);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -216,7 +219,7 @@
       #match-info { top: 48px; padding: 6px 12px; }
       #match-title { font-size: 0.78rem; }
       #match-comp { font-size: 0.6rem; padding: 2px 6px; }
-      footer { padding: 6px; font-size: 0.6rem; }
+      footer { padding: 3px 8px; font-size: 0.5rem; }
     }
 
     @media (max-width: 480px) {
@@ -237,7 +240,7 @@
       #match-info { top: 34px; padding: 3px 12px; }
       #match-title { font-size: 0.7rem; }
       #match-comp { font-size: 0.6rem; }
-      footer { padding: 3px; font-size: 0.55rem; }
+      footer { padding: 2px 6px; font-size: 0.45rem; }
       .rotate-hint { display: none !important; }
     }
 
@@ -250,7 +253,7 @@
       #match-info { top: 60px; padding: 10px 24px; }
       #match-title { font-size: 1rem; }
       #match-comp { font-size: 0.8rem; }
-      footer { padding: 10px; font-size: 0.75rem; }
+      footer { padding: 5px 14px; font-size: 0.6rem; }
     }
 
     @media (min-width: 768px) {
@@ -272,6 +275,7 @@
       #match-info { top: 76px; padding: 14px 48px; }
       #match-title { font-size: 1.2rem; }
       #match-comp { font-size: 0.9rem; }
+      footer { padding: 5px 16px; font-size: 0.65rem; }
     }
 
     @media (hover: hover) {
