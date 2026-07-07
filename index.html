@@ -19,12 +19,10 @@
       background: #0a0a0a;
       color: #fff;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      display: flex;
-      flex-direction: column;
       -webkit-font-smoothing: antialiased;
+      position: relative;
     }
 
-    /* Animated background */
     body::before {
       content: '';
       position: fixed;
@@ -32,7 +30,7 @@
       background: radial-gradient(ellipse at 20% 50%, rgba(233,69,96,0.08) 0%, transparent 50%),
                   radial-gradient(ellipse at 80% 20%, rgba(15,52,96,0.1) 0%, transparent 50%),
                   radial-gradient(ellipse at 50% 80%, rgba(233,69,96,0.05) 0%, transparent 50%);
-      z-index: -1;
+      z-index: 0;
       animation: bgShift 20s ease-in-out infinite alternate;
     }
     @keyframes bgShift {
@@ -40,8 +38,10 @@
       100% { opacity: 1; transform: scale(1.1); }
     }
 
-    /* Header */
     header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
       background: rgba(17,24,39,0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -50,97 +50,57 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid rgba(233,69,96,0.3);
-      flex-shrink: 0;
-      position: relative;
-      z-index: 100;
       animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       opacity: 0;
-      transform: translateY(-20px);
+      transform: translateY(-100%);
     }
     @keyframes slideDown {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .logo { display: flex; align-items: center; gap: 10px; }
     .logo-icon {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       background: linear-gradient(135deg, #e94560, #0f3460);
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 1rem;
-      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1rem; color: #fff;
       animation: logoSpin 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-      opacity: 0;
-      transform: scale(0.5) rotate(-180deg);
+      opacity: 0; transform: scale(0.5) rotate(-180deg);
     }
-    @keyframes logoSpin {
-      to { opacity: 1; transform: scale(1) rotate(0deg); }
-    }
+    @keyframes logoSpin { to { opacity: 1; transform: scale(1) rotate(0deg); } }
 
     .logo-text { display: flex; flex-direction: column; gap: 1px; }
     .logo-text h1 {
-      font-size: 1.15rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+      font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
       animation: fadeRight 0.5s ease 0.4s forwards;
-      opacity: 0;
-      transform: translateX(-10px);
+      opacity: 0; transform: translateX(-10px);
     }
-    @keyframes fadeRight {
-      to { opacity: 1; transform: translateX(0); }
-    }
+    @keyframes fadeRight { to { opacity: 1; transform: translateX(0); } }
     .logo-text h1 span {
       background: linear-gradient(135deg, #e94560, #ff6b81);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     }
     .logo-text small {
-      font-size: 0.6rem;
-      font-weight: 500;
-      color: #6b7280;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 0.6rem; font-weight: 500; color: #6b7280;
+      letter-spacing: 0.05em; text-transform: uppercase;
       animation: fadeRight 0.5s ease 0.5s forwards;
-      opacity: 0;
-      transform: translateX(-10px);
+      opacity: 0; transform: translateX(-10px);
     }
 
     .badge {
       background: linear-gradient(135deg, #e94560, #c23152);
-      color: #fff;
-      font-size: 0.6rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+      color: #fff; font-size: 0.6rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      display: flex; align-items: center; gap: 5px;
       animation: badgePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards;
-      opacity: 0;
-      transform: scale(0);
+      opacity: 0; transform: scale(0);
       box-shadow: 0 0 20px rgba(233,69,96,0.4);
     }
-    @keyframes badgePop {
-      to { opacity: 1; transform: scale(1); }
-    }
+    @keyframes badgePop { to { opacity: 1; transform: scale(1); } }
     .badge::before {
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: #fff;
-      border-radius: 50%;
+      content: ''; width: 6px; height: 6px; background: #fff; border-radius: 50%;
       animation: dotPulse 1.5s ease-in-out infinite;
     }
     @keyframes dotPulse {
@@ -148,117 +108,59 @@
       50% { opacity: 0.4; transform: scale(0.7); }
     }
 
-    /* Match Info Bar */
     #match-info {
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      z-index: 99;
       background: rgba(17,24,39,0.6);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       padding: 8px 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      display: flex; align-items: center; gap: 10px;
       border-bottom: 1px solid rgba(31,41,55,0.5);
-      min-height: 42px;
-      flex-shrink: 0;
       overflow: hidden;
-      position: relative;
-      z-index: 99;
       animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-      opacity: 0;
-      transform: translateY(-20px);
+      opacity: 0; transform: translateY(-100%);
     }
     #match-info .live-dot {
-      width: 8px;
-      height: 8px;
-      background: #ef4444;
-      border-radius: 50%;
-      flex-shrink: 0;
-      box-shadow: 0 0 10px rgba(239,68,68,0.6);
+      width: 8px; height: 8px; background: #ef4444; border-radius: 50%;
+      flex-shrink: 0; box-shadow: 0 0 10px rgba(239,68,68,0.6);
       animation: dotPulse 1.5s ease-in-out infinite;
     }
     #match-title {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: #f3f4f6;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      animation: fadeIn 0.8s ease 0.5s forwards;
-      opacity: 0;
+      font-weight: 600; font-size: 0.9rem; color: #f3f4f6;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      animation: fadeIn 0.8s ease 0.5s forwards; opacity: 0;
     }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+    @keyframes fadeIn { to { opacity: 1; } }
     #match-comp {
-      font-size: 0.7rem;
-      color: #6b7280;
-      margin-left: auto;
-      white-space: nowrap;
-      flex-shrink: 0;
-      padding: 2px 8px;
-      background: rgba(31,41,55,0.5);
-      border-radius: 4px;
-      animation: fadeIn 0.8s ease 0.7s forwards;
-      opacity: 0;
+      font-size: 0.7rem; color: #6b7280; margin-left: auto;
+      white-space: nowrap; flex-shrink: 0; padding: 2px 8px;
+      background: rgba(31,41,55,0.5); border-radius: 4px;
+      animation: fadeIn 0.8s ease 0.7s forwards; opacity: 0;
     }
 
-    /* Video Wrapper */
     .video-wrap {
-      flex: 1;
-      position: relative;
-      background: #000;
-      min-height: 0;
-      width: 100%;
-      cursor: pointer;
-      overflow: hidden;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #000; z-index: 1;
       animation: videoFadeIn 1s ease 0.4s forwards;
       opacity: 0;
     }
-    @keyframes videoFadeIn {
-      to { opacity: 1; }
-    }
-    .video-wrap::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #e94560, transparent);
-      z-index: 10;
-      animation: scanline 3s linear infinite;
-    }
-    @keyframes scanline {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
+    @keyframes videoFadeIn { to { opacity: 1; } }
     .video-wrap iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      transition: transform 0.3s ease;
-    }
-    .video-wrap:active iframe {
-      transform: scale(0.99);
+      width: 100%; height: 100%; border: none;
     }
 
-    /* Rotate Hint */
     .rotate-hint {
-      position: absolute;
-      bottom: 70px;
-      right: 16px;
+      position: fixed;
+      bottom: 70px; right: 16px;
       background: rgba(0,0,0,0.75);
       backdrop-filter: blur(10px);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 500;
-      padding: 8px 12px;
-      border-radius: 10px;
-      display: none;
-      align-items: center;
-      gap: 6px;
-      z-index: 10;
-      pointer-events: none;
+      color: #fff; font-size: 0.7rem; font-weight: 500;
+      padding: 8px 12px; border-radius: 10px;
+      display: none; align-items: center; gap: 6px;
+      z-index: 101; pointer-events: none;
       border: 1px solid rgba(255,255,255,0.1);
       animation: bounceHint 2s ease-in-out infinite;
     }
@@ -267,8 +169,7 @@
       50% { transform: translateY(-5px); }
     }
     .rotate-hint svg {
-      width: 16px;
-      height: 16px;
+      width: 16px; height: 16px;
       animation: rotateIcon 2s ease-in-out infinite;
     }
     @keyframes rotateIcon {
@@ -280,121 +181,98 @@
       .rotate-hint { display: flex; }
     }
 
-    /* Footer */
     footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100;
       background: rgba(17,24,39,0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      text-align: center;
-      padding: 8px 16px;
-      font-size: 0.7rem;
-      color: #4b5563;
+      text-align: center; padding: 8px 16px;
+      font-size: 0.7rem; color: #4b5563;
       border-top: 1px solid rgba(31,41,55,0.5);
-      flex-shrink: 0;
-      position: relative;
-      z-index: 100;
       animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-      opacity: 0;
-      transform: translateY(20px);
+      opacity: 0; transform: translateY(100%);
     }
-    @keyframes slideUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
     footer span {
       background: linear-gradient(135deg, #e94560, #ff6b81);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       font-weight: 700;
     }
 
-    /* Responsive: Small phones */
     @media (max-width: 380px) {
       header { padding: 8px 12px; }
       .logo-icon { width: 30px; height: 30px; font-size: 0.85rem; border-radius: 8px; }
       .logo-text h1 { font-size: 0.95rem; }
       .logo-text small { font-size: 0.55rem; }
       .badge { font-size: 0.5rem; padding: 3px 7px; }
-      #match-info { padding: 6px 12px; min-height: 36px; gap: 8px; }
+      #match-info { top: 48px; padding: 6px 12px; }
       #match-title { font-size: 0.78rem; }
       #match-comp { font-size: 0.6rem; padding: 2px 6px; }
       footer { padding: 6px; font-size: 0.6rem; }
     }
 
-    /* Responsive: Phones */
     @media (max-width: 480px) {
       header { padding: 8px 14px; }
       .logo-icon { width: 32px; height: 32px; font-size: 0.9rem; }
       .logo-text h1 { font-size: 1rem; }
       .badge { font-size: 0.55rem; padding: 3px 8px; }
-      #match-info { padding: 7px 14px; }
+      #match-info { top: 50px; padding: 7px 14px; }
       #match-title { font-size: 0.82rem; }
     }
 
-    /* Responsive: Landscape phones */
     @media (orientation: landscape) and (max-height: 500px) {
       header { padding: 4px 12px; }
       .logo-icon { width: 24px; height: 24px; font-size: 0.7rem; border-radius: 6px; }
       .logo-text h1 { font-size: 0.8rem; }
       .logo-text small { font-size: 0.5rem; }
       .badge { font-size: 0.45rem; padding: 2px 5px; }
-      #match-info { padding: 3px 12px; min-height: 24px; gap: 6px; }
+      #match-info { top: 34px; padding: 3px 12px; }
       #match-title { font-size: 0.7rem; }
       #match-comp { font-size: 0.6rem; }
       footer { padding: 3px; font-size: 0.55rem; }
       .rotate-hint { display: none !important; }
     }
 
-    /* Responsive: Tablets */
     @media (min-width: 600px) {
       header { padding: 12px 24px; }
       .logo-icon { width: 38px; height: 38px; font-size: 1.05rem; }
       .logo-text h1 { font-size: 1.25rem; }
       .logo-text small { font-size: 0.65rem; }
       .badge { font-size: 0.65rem; padding: 4px 12px; }
-      #match-info { padding: 10px 24px; min-height: 46px; }
+      #match-info { top: 60px; padding: 10px 24px; }
       #match-title { font-size: 1rem; }
       #match-comp { font-size: 0.8rem; }
       footer { padding: 10px; font-size: 0.75rem; }
     }
 
-    /* Responsive: Desktop */
     @media (min-width: 768px) {
       header { padding: 14px 32px; }
       .logo-icon { width: 42px; height: 42px; font-size: 1.15rem; border-radius: 12px; }
       .logo-text h1 { font-size: 1.4rem; }
       .logo-text small { font-size: 0.7rem; }
       .badge { font-size: 0.7rem; padding: 5px 14px; }
-      #match-info { padding: 12px 32px; min-height: 50px; }
+      #match-info { top: 68px; padding: 12px 32px; }
       #match-title { font-size: 1.1rem; }
       #match-comp { font-size: 0.85rem; }
       footer { padding: 12px; font-size: 0.8rem; }
     }
 
-    /* Responsive: Large screens */
     @media (min-width: 1024px) {
       header { padding: 16px 48px; }
       .logo-icon { width: 46px; height: 46px; font-size: 1.25rem; }
       .logo-text h1 { font-size: 1.55rem; }
-      #match-info { padding: 14px 48px; }
+      #match-info { top: 76px; padding: 14px 48px; }
       #match-title { font-size: 1.2rem; }
       #match-comp { font-size: 0.9rem; }
     }
 
-    /* Responsive: Ultra wide */
-    @media (min-width: 1440px) {
-      header { padding: 18px 64px; max-width: 1400px; margin: 0 auto; width: 100%; }
-      #match-info { max-width: 1400px; margin: 0 auto; width: 100%; }
-    }
-
-    /* Smooth hover on desktop */
     @media (hover: hover) {
       .badge:hover { transform: scale(1.05); box-shadow: 0 0 30px rgba(233,69,96,0.6); }
       .logo-icon:hover { transform: scale(1.1) rotate(5deg); }
-      footer span:hover { cursor: default; }
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -424,14 +302,15 @@
 
   <div class="video-wrap" id="videoWrap">
     <iframe src="https://vileembeds.pages.dev/embed/fox-usa#player=clappr&autoplay=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
-    <div class="rotate-hint" id="rotateHint">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="23 4 23 10 17 10"></polyline>
-        <polyline points="1 20 1 14 7 14"></polyline>
-        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-      </svg>
-      Rotate for fullscreen
-    </div>
+  </div>
+
+  <div class="rotate-hint" id="rotateHint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="23 4 23 10 17 10"></polyline>
+      <polyline points="1 20 1 14 7 14"></polyline>
+      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+    </svg>
+    Rotate for fullscreen
   </div>
 
   <footer>Made by <span>Awishkar</span></footer>
