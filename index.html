@@ -84,18 +84,20 @@
   <footer>Made by <span>Awishkar</span></footer>
 
   <script>
+    function cleanTitle(t) {
+      return t.replace(/\(COPY EMBED\)/gi, '').replace(/\(.*?EMBED.*?\)/gi, '').trim();
+    }
     async function fetchMatch() {
       try {
         const res = await fetch("https://www.scorebat.com/video-api/v3/feed/?token=MTk5MDhfMTcyMjYwODgwMF80ZjZhM2RiNDVk");
         const data = await res.json();
+        if (data.error) throw new Error();
         const now = Date.now() / 1000;
         const live = data.response.find(m => m.date < now && now < m.date + 7200)
                   || data.response.find(m => m.date > now);
         if (live) {
-          const t = live.title || "Live Match";
-          const c = live.competition || "";
-          document.getElementById("match-title").textContent = t;
-          document.getElementById("match-comp").textContent = c;
+          document.getElementById("match-title").textContent = cleanTitle(live.title || "Live Match");
+          document.getElementById("match-comp").textContent = live.competition || "";
         }
       } catch (e) {
         document.getElementById("match-title").textContent = "FIFA Live Match";
