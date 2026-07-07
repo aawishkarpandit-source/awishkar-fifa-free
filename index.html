@@ -50,12 +50,14 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid rgba(233,69,96,0.3);
-      animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
       transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      opacity: 0;
     }
-    @keyframes slideDown {
-      to { opacity: 1; transform: translateY(0); }
+    body:hover header,
+    body:not(:has(.video-wrap:hover)) header {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     .logo { display: flex; align-items: center; gap: 10px; }
@@ -65,18 +67,12 @@
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       font-weight: 800; font-size: 1rem; color: #fff;
-      animation: logoSpin 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
-      opacity: 0; transform: scale(0.5) rotate(-180deg);
     }
-    @keyframes logoSpin { to { opacity: 1; transform: scale(1) rotate(0deg); } }
 
     .logo-text { display: flex; flex-direction: column; gap: 1px; }
     .logo-text h1 {
       font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
-      animation: fadeRight 0.5s ease 0.4s forwards;
-      opacity: 0; transform: translateX(-10px);
     }
-    @keyframes fadeRight { to { opacity: 1; transform: translateX(0); } }
     .logo-text h1 span {
       background: linear-gradient(135deg, #e94560, #ff6b81);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
@@ -84,8 +80,6 @@
     .logo-text small {
       font-size: 0.6rem; font-weight: 500; color: #6b7280;
       letter-spacing: 0.05em; text-transform: uppercase;
-      animation: fadeRight 0.5s ease 0.5s forwards;
-      opacity: 0; transform: translateX(-10px);
     }
 
     .badge {
@@ -94,11 +88,8 @@
       padding: 4px 10px; border-radius: 20px;
       text-transform: uppercase; letter-spacing: 0.1em;
       display: flex; align-items: center; gap: 5px;
-      animation: badgePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s forwards;
-      opacity: 0; transform: scale(0);
       box-shadow: 0 0 20px rgba(233,69,96,0.4);
     }
-    @keyframes badgePop { to { opacity: 1; transform: scale(1); } }
     .badge::before {
       content: ''; width: 6px; height: 6px; background: #fff; border-radius: 50%;
       animation: dotPulse 1.5s ease-in-out infinite;
@@ -119,8 +110,13 @@
       display: flex; align-items: center; gap: 10px;
       border-bottom: 1px solid rgba(31,41,55,0.5);
       overflow: hidden;
-      animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-      opacity: 0; transform: translateY(-100%);
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, opacity 0.4s ease 0.1s;
+      opacity: 0;
+    }
+    body:hover #match-info {
+      transform: translateY(0);
+      opacity: 1;
     }
     #match-info .live-dot {
       width: 8px; height: 8px; background: #ef4444; border-radius: 50%;
@@ -130,14 +126,11 @@
     #match-title {
       font-weight: 600; font-size: 0.9rem; color: #f3f4f6;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-      animation: fadeIn 0.8s ease 0.5s forwards; opacity: 0;
     }
-    @keyframes fadeIn { to { opacity: 1; } }
     #match-comp {
       font-size: 0.7rem; color: #6b7280; margin-left: auto;
       white-space: nowrap; flex-shrink: 0; padding: 2px 8px;
       background: rgba(31,41,55,0.5); border-radius: 4px;
-      animation: fadeIn 0.8s ease 0.7s forwards; opacity: 0;
     }
 
     .video-wrap {
@@ -147,10 +140,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      animation: videoFadeIn 1s ease 0.4s forwards;
-      opacity: 0;
     }
-    @keyframes videoFadeIn { to { opacity: 1; } }
     .video-wrap iframe {
       width: 100vw;
       max-height: 100vh;
@@ -199,11 +189,15 @@
       font-size: 0.6rem; color: #6b7280;
       border-radius: 20px;
       border: 1px solid rgba(255,255,255,0.08);
-      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
       pointer-events: none;
       white-space: nowrap;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s, opacity 0.6s ease 0.5s;
+      opacity: 0;
     }
-    @keyframes slideUp { to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+    body:hover footer {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
     footer span {
       background: linear-gradient(135deg, #e94560, #ff6b81);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
