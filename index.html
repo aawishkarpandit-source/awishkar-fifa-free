@@ -55,7 +55,7 @@
       opacity: 0;
     }
     body:hover header,
-    body:not(:has(.video-wrap:hover)) header {
+    body.show-ui header {
       transform: translateY(0);
       opacity: 1;
     }
@@ -114,7 +114,8 @@
       transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, opacity 0.4s ease 0.1s;
       opacity: 0;
     }
-    body:hover #match-info {
+    body:hover #match-info,
+    body.show-ui #match-info {
       transform: translateY(0);
       opacity: 1;
     }
@@ -194,7 +195,8 @@
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s, opacity 0.6s ease 0.5s;
       opacity: 0;
     }
-    body:hover footer {
+    body:hover footer,
+    body.show-ui footer {
       transform: translateX(-50%) translateY(0);
       opacity: 1;
     }
@@ -358,10 +360,29 @@
     }
 
     document.addEventListener("fullscreenchange", function () {
-      if (document.fullscreenElement) lockLandscape();
+      if (document.fullscreenElement) {
+        lockLandscape();
+        document.body.classList.add("show-ui");
+      } else {
+        document.body.classList.remove("show-ui");
+      }
     });
     document.addEventListener("webkitfullscreenchange", function () {
-      if (document.webkitFullscreenElement) lockLandscape();
+      if (document.webkitFullscreenElement) {
+        lockLandscape();
+        document.body.classList.add("show-ui");
+      } else {
+        document.body.classList.remove("show-ui");
+      }
+    });
+
+    let hideTimer;
+    document.addEventListener("mousemove", function () {
+      document.body.classList.add("show-ui");
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () {
+        document.body.classList.remove("show-ui");
+      }, 2500);
     });
 
     videoWrap.addEventListener("click", function (e) {
