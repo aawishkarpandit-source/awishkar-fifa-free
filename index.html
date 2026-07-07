@@ -2,26 +2,67 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="screen-orientation" content="any">
   <title>FIFA Live Matches</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
-    header { background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e94560; }
-    .logo { display: flex; align-items: center; gap: 10px; }
-    .logo svg { width: 32px; height: 32px; }
-    .logo h1 { font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; }
+    html, body { height: 100%; overflow: hidden; }
+    body { background: #0a0a0a; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; }
+    header { background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #e94560; flex-shrink: 0; }
+    .logo { display: flex; align-items: center; gap: 8px; }
+    .logo svg { width: 28px; height: 28px; }
+    .logo h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; }
     .logo h1 span { color: #e94560; }
-    .badge { background: #e94560; color: #fff; font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; animation: pulse 2s infinite; }
+    .badge { background: #e94560; color: #fff; font-size: 0.6rem; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; animation: pulse 2s infinite; }
     @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-    #match-info { background: #111827; padding: 10px 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #1f2937; min-height: 44px; }
+    #match-info { background: #111827; padding: 8px 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #1f2937; min-height: 40px; flex-shrink: 0; overflow: hidden; }
     #match-info .live-dot { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; animation: pulse 1.5s infinite; flex-shrink: 0; }
-    #match-title { font-weight: 600; font-size: 1rem; color: #fff; }
-    #match-comp { font-size: 0.8rem; color: #9ca3af; margin-left: auto; }
+    #match-title { font-weight: 600; font-size: 0.9rem; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #match-comp { font-size: 0.75rem; color: #9ca3af; margin-left: auto; white-space: nowrap; flex-shrink: 0; }
     .video-wrap { flex: 1; position: relative; background: #000; min-height: 0; }
     .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-    footer { background: #111827; text-align: center; padding: 10px; font-size: 0.75rem; color: #6b7280; border-top: 1px solid #1f2937; }
+    footer { background: #111827; text-align: center; padding: 8px; font-size: 0.7rem; color: #6b7280; border-top: 1px solid #1f2937; flex-shrink: 0; }
     footer span { color: #e94560; font-weight: 600; }
+
+    @media (max-width: 480px) {
+      header { padding: 8px 12px; }
+      .logo svg { width: 24px; height: 24px; }
+      .logo h1 { font-size: 0.95rem; }
+      .badge { font-size: 0.55rem; padding: 2px 6px; }
+      #match-info { padding: 6px 12px; min-height: 36px; }
+      #match-title { font-size: 0.8rem; }
+      #match-comp { font-size: 0.7rem; }
+      footer { padding: 6px; font-size: 0.65rem; }
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      header { padding: 4px 12px; }
+      .logo svg { width: 20px; height: 20px; }
+      .logo h1 { font-size: 0.85rem; }
+      .badge { font-size: 0.5rem; padding: 2px 5px; }
+      #match-info { padding: 4px 12px; min-height: 28px; gap: 6px; }
+      #match-title { font-size: 0.75rem; }
+      #match-comp { font-size: 0.65rem; }
+      footer { padding: 3px; font-size: 0.6rem; }
+    }
+
+    @media (min-width: 768px) {
+      header { padding: 14px 32px; }
+      .logo svg { width: 36px; height: 36px; }
+      .logo h1 { font-size: 1.5rem; }
+      #match-info { padding: 12px 32px; min-height: 48px; }
+      #match-title { font-size: 1.1rem; }
+      #match-comp { font-size: 0.9rem; }
+      footer { padding: 12px; font-size: 0.8rem; }
+    }
+
+    @media (min-width: 1024px) {
+      header { padding: 16px 48px; }
+      #match-info { padding: 14px 48px; }
+    }
   </style>
 </head>
 <body>
