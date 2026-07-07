@@ -84,33 +84,28 @@
   <footer>Made by <span>Awishkar</span></footer>
 
   <script>
-    const matches = [
-      { teams: "Argentina vs Brazil", comp: "FIFA World Cup Qualifiers" },
-      { teams: "France vs Germany", comp: "UEFA Nations League" },
-      { teams: "England vs Spain", comp: "International Friendly" },
-      { teams: "Portugal vs Netherlands", comp: "UEFA Nations League" },
-      { teams: "Japan vs Australia", comp: "AFC World Cup Qualifiers" },
-      { teams: "USA vs Mexico", comp: "CONCACAF Nations League" },
-      { teams: "Italy vs Belgium", comp: "UEFA Nations League" },
-      { teams: "Senegal vs Morocco", comp: "AFCON Qualifiers" },
-      { teams: "Brazil vs Colombia", comp: "Copa America" },
-      { teams: "Germany vs Italy", comp: "UEFA Nations League" },
-      { teams: "Spain vs France", comp: "UEFA Nations League" },
-      { teams: "Netherlands vs Belgium", comp: "International Friendly" },
-      { teams: "Croatia vs Serbia", comp: "UEFA Nations League" },
-      { teams: "Uruguay vs Chile", comp: "FIFA World Cup Qualifiers" },
-    ];
-
-    function showMatch() {
-      const now = new Date();
-      const idx = (now.getHours() * 2 + Math.floor(now.getMinutes() / 30)) % matches.length;
-      const m = matches[idx];
-      document.getElementById("match-title").textContent = m.teams;
-      document.getElementById("match-comp").textContent = m.comp;
+    async function fetchMatch() {
+      try {
+        const res = await fetch("https://site.api.espn.com/apis/site/v2/sports/soccer/all/scoreboard");
+        const data = await res.json();
+        const events = data.events || [];
+        const live = events.find(e => e.status && e.status.type && e.status.type.state === "in");
+        const upcoming = events.find(e => e.status && e.status.type && e.status.type.state === "pre");
+        const recent = events.find(e => e.status && e.status.type && e.status.type.state === "post");
+        const match = live || upcoming || recent;
+        if (match) {
+          document.getElementById("match-title").textContent = match.name || "FIFA Live Match";
+          const league = match.season ? match.season.slug : "";
+          document.getElementById("match-comp").textContent = league;
+        } else {
+          document.getElementById("match-title").textContent = "FIFA Live Match";
+        }
+      } catch (e) {
+        document.getElementById("match-title").textContent = "FIFA Live Match";
+      }
     }
-
-    showMatch();
-    setInterval(showMatch, 60000);
+    fetchMatch();
+    setInterval(fetchMatch, 30000);
   </script>
 </body>
 </html>
