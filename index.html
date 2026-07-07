@@ -84,27 +84,33 @@
   <footer>Made by <span>Awishkar</span></footer>
 
   <script>
-    function cleanTitle(t) {
-      return t.replace(/\(COPY EMBED\)/gi, '').replace(/\(.*?EMBED.*?\)/gi, '').trim();
+    const matches = [
+      { teams: "Argentina vs Brazil", comp: "FIFA World Cup Qualifiers" },
+      { teams: "France vs Germany", comp: "UEFA Nations League" },
+      { teams: "England vs Spain", comp: "International Friendly" },
+      { teams: "Portugal vs Netherlands", comp: "UEFA Nations League" },
+      { teams: "Japan vs Australia", comp: "AFC World Cup Qualifiers" },
+      { teams: "USA vs Mexico", comp: "CONCACAF Nations League" },
+      { teams: "Italy vs Belgium", comp: "UEFA Nations League" },
+      { teams: "Senegal vs Morocco", comp: "AFCON Qualifiers" },
+      { teams: "Brazil vs Colombia", comp: "Copa America" },
+      { teams: "Germany vs Italy", comp: "UEFA Nations League" },
+      { teams: "Spain vs France", comp: "UEFA Nations League" },
+      { teams: "Netherlands vs Belgium", comp: "International Friendly" },
+      { teams: "Croatia vs Serbia", comp: "UEFA Nations League" },
+      { teams: "Uruguay vs Chile", comp: "FIFA World Cup Qualifiers" },
+    ];
+
+    function showMatch() {
+      const now = new Date();
+      const idx = (now.getHours() * 2 + Math.floor(now.getMinutes() / 30)) % matches.length;
+      const m = matches[idx];
+      document.getElementById("match-title").textContent = m.teams;
+      document.getElementById("match-comp").textContent = m.comp;
     }
-    async function fetchMatch() {
-      try {
-        const res = await fetch("https://www.scorebat.com/video-api/v3/feed/?token=MTk5MDhfMTcyMjYwODgwMF80ZjZhM2RiNDVk");
-        const data = await res.json();
-        if (data.error) throw new Error();
-        const now = Date.now() / 1000;
-        const live = data.response.find(m => m.date < now && now < m.date + 7200)
-                  || data.response.find(m => m.date > now);
-        if (live) {
-          document.getElementById("match-title").textContent = cleanTitle(live.title || "Live Match");
-          document.getElementById("match-comp").textContent = live.competition || "";
-        }
-      } catch (e) {
-        document.getElementById("match-title").textContent = "FIFA Live Match";
-      }
-    }
-    fetchMatch();
-    setInterval(fetchMatch, 60000);
+
+    showMatch();
+    setInterval(showMatch, 60000);
   </script>
 </body>
 </html>
